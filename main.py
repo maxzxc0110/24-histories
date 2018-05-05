@@ -35,8 +35,6 @@ def wireFile(url,filename):
             open(filename,'ab+').write(i)
             open(filename,'ab+').write("\r\n")
             
-
-
 #获取单个页面所有href   
 def getAllHref(url):
     soup = initSoup(url)
@@ -46,6 +44,7 @@ def getAllHref(url):
         href = i.a['href']
         urlArr.append(href)
     return urlArr
+
 #获取书名
 def getFileName(url):
     soup = initSoup(url)
@@ -57,7 +56,6 @@ def getFileName(url):
 def downloadOneBook(url):
     orginUrl = url
     fileName = getFileName(url)
-    print fileName
     AllHref = getAllHref(url)
     for url in AllHref:
         wireFile(url,fileName)
@@ -67,7 +65,6 @@ def downloadOneBook(url):
             url = orginUrl+"list-"+str(i)+".html"
             AllHref = getAllHref(url)
             for url in AllHref:
-                #pass
                 wireFile(url,fileName)
             i = int(i)
             i = i+1
@@ -85,7 +82,6 @@ def getAllBookUrl(url):
 
 
 if __name__ == '__main__':
-    
     url = "http://duguoxue.cn/ershisishi/"  #起始地址
     urls = getAllBookUrl(url)
     for url in urls:
