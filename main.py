@@ -65,7 +65,6 @@ def downloadOneBook(url):
     while(1):
         if(get_status(url)==200):
             url = orginUrl+"list-"+str(i)+".html"
-            print url
             AllHref = getAllHref(url)
             for url in AllHref:
                 #pass
@@ -75,9 +74,21 @@ def downloadOneBook(url):
         else:
             break
 
+#获取所有书籍的url
+def getAllBookUrl(url):
+    soup = initSoup(url)
+    urls = []
+    a = soup.select("div strong a")
+    for i in a:
+        urls.append(i['href'])
+    return urls
+
 
 if __name__ == '__main__':
-    url = "http://duguoxue.cn/ershisishi/baihuashiji/"
-
-    downloadOneBook(url)
+    
+    url = "http://duguoxue.cn/ershisishi/"  #起始地址
+    urls = getAllBookUrl(url)
+    for url in urls:
+        downloadOneBook(url)
+        
       
